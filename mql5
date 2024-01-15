@@ -1,0 +1,155 @@
+mql5
+//+------------------------------------------------------------------+
+//|                                               Candlestick Patterns with Alerts MT5 |
+//|                                Copyright 2022, Forex Robot Easy Team |
+//|                                          https://forexroboteasy.com |
+//+------------------------------------------------------------------+
+
+// Define input parameters
+input color BullishColor = clrGreen;  // Bullish formations color
+input color BearishColor = clrRed;    // Bearish formations color
+
+//+------------------------------------------------------------------+
+//| Custom indicator initialization function                         |
+//+------------------------------------------------------------------+
+int OnInit()
+{
+    // Create an arrow object for bullish formations
+    ObjectCreate(0, 'BullishArrow', OBJ_ARROW, 0, 0, 0);
+    ObjectSetInteger(0, 'BullishArrow', OBJPROP_ARROWCODE, 233);  // Code for a bullish arrow
+    ObjectSetInteger(0, 'BullishArrow', OBJPROP_COLOR, BullishColor);
+
+    // Create an arrow object for bearish formations
+    ObjectCreate(0, 'BearishArrow', OBJ_ARROW, 0, 0, 0);
+    ObjectSetInteger(0, 'BearishArrow', OBJPROP_ARROWCODE, 234);  // Code for a bearish arrow
+    ObjectSetInteger(0, 'BearishArrow', OBJPROP_COLOR, BearishColor);
+
+    return(INIT_SUCCEEDED);
+}
+
+//+------------------------------------------------------------------+
+//| Custom indicator iteration function                              |
+//+------------------------------------------------------------------+
+int OnCalculate(const int rates_total,
+                const int prev_calculated,
+                const datetime &time[],
+                const double &open[],
+                const double &high[],
+                const double &low[],
+                const double &close[],
+                const long &tick_volume[],
+                const long &volume[],
+                const int &spread[])
+{
+    // Check for bullish formations
+    if (IsBullBreakout(rates_total, prev_calculated, open, high, low, close))
+        DisplayBullishFormation();
+    else if (IsHammer(rates_total, prev_calculated, open, high, low, close))
+        DisplayBullishFormation();
+    else if (IsBullishEngulfing(rates_total, prev_calculated, open, high, low, close))
+        DisplayBullishFormation();
+
+    // Check for bearish formations
+    if (IsBearBreakout(rates_total, prev_calculated, open, high, low, close))
+        DisplayBearishFormation();
+    else if (IsPin(rates_total, prev_calculated, open, high, low, close))
+        DisplayBearishFormation();
+    else if (IsBearishEngulfing(rates_total, prev_calculated, open, high, low, close))
+        DisplayBearishFormation();
+
+    return(rates_total);
+}
+
+//+------------------------------------------------------------------+
+//| Check for bullish breakout formation                             |
+//+------------------------------------------------------------------+
+bool IsBullBreakout(const int rates_total,
+                    const int prev_calculated,
+                    const double &open[],
+                    const double &high[],
+                    const double &low[],
+                    const double &close[])
+{
+    // Add your code here to check for bullish breakout formation
+}
+
+//+------------------------------------------------------------------+
+//| Check for bearish breakout formation                             |
+//+------------------------------------------------------------------+
+bool IsBearBreakout(const int rates_total,
+                    const int prev_calculated,
+                    const double &open[],
+                    const double &high[],
+                    const double &low[],
+                    const double &close[])
+{
+    // Add your code here to check for bearish breakout formation
+}
+
+//+------------------------------------------------------------------+
+//| Check for hammer formation                                       |
+//+------------------------------------------------------------------+
+bool IsHammer(const int rates_total,
+              const int prev_calculated,
+              const double &open[],
+              const double &high[],
+              const double &low[],
+              const double &close[])
+{
+    // Add your code here to check for hammer formation
+}
+
+//+------------------------------------------------------------------+
+//| Check for pin formation                                          |
+//+------------------------------------------------------------------+
+bool IsPin(const int rates_total,
+           const int prev_calculated,
+           const double &open[],
+           const double &high[],
+           const double &low[],
+           const double &close[])
+{
+    // Add your code here to check for pin formation
+}
+
+//+------------------------------------------------------------------+
+//| Check for bullish engulfing formation                            |
+//+------------------------------------------------------------------+
+bool IsBullishEngulfing(const int rates_total,
+                        const int prev_calculated,
+                        const double &open[],
+                        const double &high[],
+                        const double &low[],
+                        const double &close[])
+{
+    // Add your code here to check for bullish engulfing formation
+}
+
+//+------------------------------------------------------------------+
+//| Check for bearish engulfing formation                            |
+//+------------------------------------------------------------------+
+bool IsBearishEngulfing(const int rates_total,
+                        const int prev_calculated,
+                        const double &open[],
+                        const double &high[],
+                        const double &low[],
+                        const double &close[])
+{
+    // Add your code here to check for bearish engulfing formation
+}
+
+//+------------------------------------------------------------------+
+//| Display bullish formation                                        |
+//+------------------------------------------------------------------+
+void DisplayBullishFormation()
+{
+    ObjectCreate(0, 'BullishArrow', OBJ_ARROW, 0, Time[0], Low[0]);
+}
+
+//+------------------------------------------------------------------+
+//| Display bearish formation                                        |
+//+------------------------------------------------------------------+
+void DisplayBearishFormation()
+{
+    ObjectCreate(0, 'BearishArrow', OBJ_ARROW, 0, Time[0], High[0]);
+}
